@@ -1,0 +1,534 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TutoriasDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Asignaturas">
+          <Key>
+            <PropertyRef Name="Asignatura_ID" />
+          </Key>
+          <Property Name="Asignatura_ID" Type="int" Nullable="false" />
+          <Property Name="Asignatura_Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="Asignatura_Descripcion" Type="varchar" MaxLength="255" />
+          <Property Name="Asignatura_Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="Itinerario">
+          <Key>
+            <PropertyRef Name="Itinerario_ID" />
+          </Key>
+          <Property Name="Itinerario_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tutoria_ID" Type="int" />
+          <Property Name="Fecha_Inicio" Type="datetime" Nullable="false" />
+          <Property Name="Fecha_Termino" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProfesorAsignatura">
+          <Key>
+            <PropertyRef Name="Pro_asig_ID" />
+          </Key>
+          <Property Name="Pro_asig_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Profesor_ID" Type="int" />
+          <Property Name="Asignatura_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Rol_ID" />
+          </Key>
+          <Property Name="Rol_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rol_Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="Rol_Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="Tutorias">
+          <Key>
+            <PropertyRef Name="Tutoria_ID" />
+          </Key>
+          <Property Name="Tutoria_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Asignatura_ID" Type="int" />
+          <Property Name="Profesor_ID" Type="int" />
+          <Property Name="Estudiante_ID" Type="int" />
+          <Property Name="Tuoria_Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="UsuarioRoles">
+          <Key>
+            <PropertyRef Name="Us_Rol_ID" />
+          </Key>
+          <Property Name="Us_Rol_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Usuario_ID" Type="int" />
+          <Property Name="Rol_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="Usuario_Matricula" />
+          </Key>
+          <Property Name="Usuario_Matricula" Type="int" Nullable="false" />
+          <Property Name="Usuario_Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="Usuario_Apellido1" Type="varchar" MaxLength="50" />
+          <Property Name="Usuario_Correo" Type="varchar" MaxLength="50" />
+          <Property Name="Usuario_Contrasena" Type="varchar" MaxLength="50" />
+          <Property Name="Usuario_Telefono" Type="int" />
+          <Property Name="Usuario_Descripcion" Type="varchar" MaxLength="50" />
+          <Property Name="Usuario_Estado" Type="bit" />
+        </EntityType>
+        <Association Name="FK__Itinerari__Tutor__3E52440B">
+          <End Role="Tutorias" Type="Self.Tutorias" Multiplicity="0..1" />
+          <End Role="Itinerario" Type="Self.Itinerario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tutorias">
+              <PropertyRef Name="Tutoria_ID" />
+            </Principal>
+            <Dependent Role="Itinerario">
+              <PropertyRef Name="Tutoria_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProfesorA__Asign__36B12243">
+          <End Role="Asignaturas" Type="Self.Asignaturas" Multiplicity="0..1" />
+          <End Role="ProfesorAsignatura" Type="Self.ProfesorAsignatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asignaturas">
+              <PropertyRef Name="Asignatura_ID" />
+            </Principal>
+            <Dependent Role="ProfesorAsignatura">
+              <PropertyRef Name="Asignatura_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProfesorA__Profe__35BCFE0A">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="ProfesorAsignatura" Type="Self.ProfesorAsignatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Usuario_Matricula" />
+            </Principal>
+            <Dependent Role="ProfesorAsignatura">
+              <PropertyRef Name="Profesor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tutorias__Asigna__398D8EEE">
+          <End Role="Asignaturas" Type="Self.Asignaturas" Multiplicity="0..1" />
+          <End Role="Tutorias" Type="Self.Tutorias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asignaturas">
+              <PropertyRef Name="Asignatura_ID" />
+            </Principal>
+            <Dependent Role="Tutorias">
+              <PropertyRef Name="Asignatura_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tutorias__Estudi__3B75D760">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="Tutorias" Type="Self.Tutorias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Usuario_Matricula" />
+            </Principal>
+            <Dependent Role="Tutorias">
+              <PropertyRef Name="Estudiante_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tutorias__Profes__3A81B327">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="Tutorias" Type="Self.Tutorias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Usuario_Matricula" />
+            </Principal>
+            <Dependent Role="Tutorias">
+              <PropertyRef Name="Profesor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UsuarioRo__Rol_I__30F848ED">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="UsuarioRoles" Type="Self.UsuarioRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Rol_ID" />
+            </Principal>
+            <Dependent Role="UsuarioRoles">
+              <PropertyRef Name="Rol_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UsuarioRo__Usuar__300424B4">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="UsuarioRoles" Type="Self.UsuarioRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Usuario_Matricula" />
+            </Principal>
+            <Dependent Role="UsuarioRoles">
+              <PropertyRef Name="Usuario_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TutoriasDBModelStoreContainer">
+          <EntitySet Name="Asignaturas" EntityType="Self.Asignaturas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Itinerario" EntityType="Self.Itinerario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProfesorAsignatura" EntityType="Self.ProfesorAsignatura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tutorias" EntityType="Self.Tutorias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsuarioRoles" EntityType="Self.UsuarioRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Itinerari__Tutor__3E52440B" Association="Self.FK__Itinerari__Tutor__3E52440B">
+            <End Role="Tutorias" EntitySet="Tutorias" />
+            <End Role="Itinerario" EntitySet="Itinerario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProfesorA__Asign__36B12243" Association="Self.FK__ProfesorA__Asign__36B12243">
+            <End Role="Asignaturas" EntitySet="Asignaturas" />
+            <End Role="ProfesorAsignatura" EntitySet="ProfesorAsignatura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProfesorA__Profe__35BCFE0A" Association="Self.FK__ProfesorA__Profe__35BCFE0A">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="ProfesorAsignatura" EntitySet="ProfesorAsignatura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tutorias__Asigna__398D8EEE" Association="Self.FK__Tutorias__Asigna__398D8EEE">
+            <End Role="Asignaturas" EntitySet="Asignaturas" />
+            <End Role="Tutorias" EntitySet="Tutorias" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tutorias__Estudi__3B75D760" Association="Self.FK__Tutorias__Estudi__3B75D760">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Tutorias" EntitySet="Tutorias" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tutorias__Profes__3A81B327" Association="Self.FK__Tutorias__Profes__3A81B327">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Tutorias" EntitySet="Tutorias" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UsuarioRo__Rol_I__30F848ED" Association="Self.FK__UsuarioRo__Rol_I__30F848ED">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UsuarioRoles" EntitySet="UsuarioRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UsuarioRo__Usuar__300424B4" Association="Self.FK__UsuarioRo__Usuar__300424B4">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="UsuarioRoles" EntitySet="UsuarioRoles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TutoriasDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Asignatura">
+          <Key>
+            <PropertyRef Name="Asignatura_ID" />
+          </Key>
+          <Property Name="Asignatura_ID" Type="Int32" Nullable="false" />
+          <Property Name="Asignatura_Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Asignatura_Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Asignatura_Estado" Type="Boolean" />
+          <NavigationProperty Name="ProfesorAsignaturas" Relationship="Self.FK__ProfesorA__Asign__36B12243" FromRole="Asignaturas" ToRole="ProfesorAsignatura" />
+          <NavigationProperty Name="Tutorias" Relationship="Self.FK__Tutorias__Asigna__398D8EEE" FromRole="Asignaturas" ToRole="Tutorias" />
+        </EntityType>
+        <EntityType Name="Itinerario">
+          <Key>
+            <PropertyRef Name="Itinerario_ID" />
+          </Key>
+          <Property Name="Itinerario_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tutoria_ID" Type="Int32" />
+          <Property Name="Fecha_Inicio" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Fecha_Termino" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Tutoria" Relationship="Self.FK__Itinerari__Tutor__3E52440B" FromRole="Itinerario" ToRole="Tutorias" />
+        </EntityType>
+        <EntityType Name="ProfesorAsignatura">
+          <Key>
+            <PropertyRef Name="Pro_asig_ID" />
+          </Key>
+          <Property Name="Pro_asig_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Profesor_ID" Type="Int32" />
+          <Property Name="Asignatura_ID" Type="Int32" />
+          <NavigationProperty Name="Asignatura" Relationship="Self.FK__ProfesorA__Asign__36B12243" FromRole="ProfesorAsignatura" ToRole="Asignaturas" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__ProfesorA__Profe__35BCFE0A" FromRole="ProfesorAsignatura" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Rol_ID" />
+          </Key>
+          <Property Name="Rol_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rol_Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Rol_Estado" Type="Boolean" />
+          <NavigationProperty Name="UsuarioRoles" Relationship="Self.FK__UsuarioRo__Rol_I__30F848ED" FromRole="Roles" ToRole="UsuarioRoles" />
+        </EntityType>
+        <EntityType Name="Tutoria">
+          <Key>
+            <PropertyRef Name="Tutoria_ID" />
+          </Key>
+          <Property Name="Tutoria_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Asignatura_ID" Type="Int32" />
+          <Property Name="Profesor_ID" Type="Int32" />
+          <Property Name="Estudiante_ID" Type="Int32" />
+          <Property Name="Tuoria_Estado" Type="Boolean" />
+          <NavigationProperty Name="Asignatura" Relationship="Self.FK__Tutorias__Asigna__398D8EEE" FromRole="Tutorias" ToRole="Asignaturas" />
+          <NavigationProperty Name="Itinerarios" Relationship="Self.FK__Itinerari__Tutor__3E52440B" FromRole="Tutorias" ToRole="Itinerario" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Tutorias__Estudi__3B75D760" FromRole="Tutorias" ToRole="Usuarios" />
+          <NavigationProperty Name="Usuario1" Relationship="Self.FK__Tutorias__Profes__3A81B327" FromRole="Tutorias" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="UsuarioRole">
+          <Key>
+            <PropertyRef Name="Us_Rol_ID" />
+          </Key>
+          <Property Name="Us_Rol_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Usuario_ID" Type="Int32" />
+          <Property Name="Rol_ID" Type="Int32" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__UsuarioRo__Rol_I__30F848ED" FromRole="UsuarioRoles" ToRole="Roles" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__UsuarioRo__Usuar__300424B4" FromRole="UsuarioRoles" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Usuario_Matricula" />
+          </Key>
+          <Property Name="Usuario_Matricula" Type="Int32" Nullable="false" />
+          <Property Name="Usuario_Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Usuario_Apellido1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Usuario_Correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Usuario_Contrasena" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Usuario_Telefono" Type="Int32" />
+          <Property Name="Usuario_Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Usuario_Estado" Type="Boolean" />
+          <NavigationProperty Name="ProfesorAsignaturas" Relationship="Self.FK__ProfesorA__Profe__35BCFE0A" FromRole="Usuarios" ToRole="ProfesorAsignatura" />
+          <NavigationProperty Name="Tutorias" Relationship="Self.FK__Tutorias__Estudi__3B75D760" FromRole="Usuarios" ToRole="Tutorias" />
+          <NavigationProperty Name="Tutorias1" Relationship="Self.FK__Tutorias__Profes__3A81B327" FromRole="Usuarios" ToRole="Tutorias" />
+          <NavigationProperty Name="UsuarioRoles" Relationship="Self.FK__UsuarioRo__Usuar__300424B4" FromRole="Usuarios" ToRole="UsuarioRoles" />
+        </EntityType>
+        <Association Name="FK__ProfesorA__Asign__36B12243">
+          <End Role="Asignaturas" Type="Self.Asignatura" Multiplicity="0..1" />
+          <End Role="ProfesorAsignatura" Type="Self.ProfesorAsignatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asignaturas">
+              <PropertyRef Name="Asignatura_ID" />
+            </Principal>
+            <Dependent Role="ProfesorAsignatura">
+              <PropertyRef Name="Asignatura_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tutorias__Asigna__398D8EEE">
+          <End Role="Asignaturas" Type="Self.Asignatura" Multiplicity="0..1" />
+          <End Role="Tutorias" Type="Self.Tutoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asignaturas">
+              <PropertyRef Name="Asignatura_ID" />
+            </Principal>
+            <Dependent Role="Tutorias">
+              <PropertyRef Name="Asignatura_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Itinerari__Tutor__3E52440B">
+          <End Role="Tutorias" Type="Self.Tutoria" Multiplicity="0..1" />
+          <End Role="Itinerario" Type="Self.Itinerario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tutorias">
+              <PropertyRef Name="Tutoria_ID" />
+            </Principal>
+            <Dependent Role="Itinerario">
+              <PropertyRef Name="Tutoria_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProfesorA__Profe__35BCFE0A">
+          <End Role="Usuarios" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="ProfesorAsignatura" Type="Self.ProfesorAsignatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Usuario_Matricula" />
+            </Principal>
+            <Dependent Role="ProfesorAsignatura">
+              <PropertyRef Name="Profesor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UsuarioRo__Rol_I__30F848ED">
+          <End Role="Roles" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="UsuarioRoles" Type="Self.UsuarioRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Rol_ID" />
+            </Principal>
+            <Dependent Role="UsuarioRoles">
+              <PropertyRef Name="Rol_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tutorias__Estudi__3B75D760">
+          <End Role="Usuarios" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Tutorias" Type="Self.Tutoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Usuario_Matricula" />
+            </Principal>
+            <Dependent Role="Tutorias">
+              <PropertyRef Name="Estudiante_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tutorias__Profes__3A81B327">
+          <End Role="Usuarios" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Tutorias" Type="Self.Tutoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Usuario_Matricula" />
+            </Principal>
+            <Dependent Role="Tutorias">
+              <PropertyRef Name="Profesor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UsuarioRo__Usuar__300424B4">
+          <End Role="Usuarios" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="UsuarioRoles" Type="Self.UsuarioRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Usuario_Matricula" />
+            </Principal>
+            <Dependent Role="UsuarioRoles">
+              <PropertyRef Name="Usuario_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TutoriasDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Asignaturas" EntityType="Self.Asignatura" />
+          <EntitySet Name="Itinerarios" EntityType="Self.Itinerario" />
+          <EntitySet Name="ProfesorAsignaturas" EntityType="Self.ProfesorAsignatura" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="Tutorias" EntityType="Self.Tutoria" />
+          <EntitySet Name="UsuarioRoles" EntityType="Self.UsuarioRole" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK__ProfesorA__Asign__36B12243" Association="Self.FK__ProfesorA__Asign__36B12243">
+            <End Role="Asignaturas" EntitySet="Asignaturas" />
+            <End Role="ProfesorAsignatura" EntitySet="ProfesorAsignaturas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tutorias__Asigna__398D8EEE" Association="Self.FK__Tutorias__Asigna__398D8EEE">
+            <End Role="Asignaturas" EntitySet="Asignaturas" />
+            <End Role="Tutorias" EntitySet="Tutorias" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Itinerari__Tutor__3E52440B" Association="Self.FK__Itinerari__Tutor__3E52440B">
+            <End Role="Tutorias" EntitySet="Tutorias" />
+            <End Role="Itinerario" EntitySet="Itinerarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProfesorA__Profe__35BCFE0A" Association="Self.FK__ProfesorA__Profe__35BCFE0A">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="ProfesorAsignatura" EntitySet="ProfesorAsignaturas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UsuarioRo__Rol_I__30F848ED" Association="Self.FK__UsuarioRo__Rol_I__30F848ED">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UsuarioRoles" EntitySet="UsuarioRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tutorias__Estudi__3B75D760" Association="Self.FK__Tutorias__Estudi__3B75D760">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Tutorias" EntitySet="Tutorias" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tutorias__Profes__3A81B327" Association="Self.FK__Tutorias__Profes__3A81B327">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Tutorias" EntitySet="Tutorias" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UsuarioRo__Usuar__300424B4" Association="Self.FK__UsuarioRo__Usuar__300424B4">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="UsuarioRoles" EntitySet="UsuarioRoles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TutoriasDBModelStoreContainer" CdmEntityContainer="TutoriasDBEntities">
+          <EntitySetMapping Name="Asignaturas">
+            <EntityTypeMapping TypeName="TutoriasDBModel.Asignatura">
+              <MappingFragment StoreEntitySet="Asignaturas">
+                <ScalarProperty Name="Asignatura_ID" ColumnName="Asignatura_ID" />
+                <ScalarProperty Name="Asignatura_Nombre" ColumnName="Asignatura_Nombre" />
+                <ScalarProperty Name="Asignatura_Descripcion" ColumnName="Asignatura_Descripcion" />
+                <ScalarProperty Name="Asignatura_Estado" ColumnName="Asignatura_Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Itinerarios">
+            <EntityTypeMapping TypeName="TutoriasDBModel.Itinerario">
+              <MappingFragment StoreEntitySet="Itinerario">
+                <ScalarProperty Name="Itinerario_ID" ColumnName="Itinerario_ID" />
+                <ScalarProperty Name="Tutoria_ID" ColumnName="Tutoria_ID" />
+                <ScalarProperty Name="Fecha_Inicio" ColumnName="Fecha_Inicio" />
+                <ScalarProperty Name="Fecha_Termino" ColumnName="Fecha_Termino" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProfesorAsignaturas">
+            <EntityTypeMapping TypeName="TutoriasDBModel.ProfesorAsignatura">
+              <MappingFragment StoreEntitySet="ProfesorAsignatura">
+                <ScalarProperty Name="Pro_asig_ID" ColumnName="Pro_asig_ID" />
+                <ScalarProperty Name="Profesor_ID" ColumnName="Profesor_ID" />
+                <ScalarProperty Name="Asignatura_ID" ColumnName="Asignatura_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="TutoriasDBModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="Rol_ID" ColumnName="Rol_ID" />
+                <ScalarProperty Name="Rol_Nombre" ColumnName="Rol_Nombre" />
+                <ScalarProperty Name="Rol_Estado" ColumnName="Rol_Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tutorias">
+            <EntityTypeMapping TypeName="TutoriasDBModel.Tutoria">
+              <MappingFragment StoreEntitySet="Tutorias">
+                <ScalarProperty Name="Tutoria_ID" ColumnName="Tutoria_ID" />
+                <ScalarProperty Name="Asignatura_ID" ColumnName="Asignatura_ID" />
+                <ScalarProperty Name="Profesor_ID" ColumnName="Profesor_ID" />
+                <ScalarProperty Name="Estudiante_ID" ColumnName="Estudiante_ID" />
+                <ScalarProperty Name="Tuoria_Estado" ColumnName="Tuoria_Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsuarioRoles">
+            <EntityTypeMapping TypeName="TutoriasDBModel.UsuarioRole">
+              <MappingFragment StoreEntitySet="UsuarioRoles">
+                <ScalarProperty Name="Us_Rol_ID" ColumnName="Us_Rol_ID" />
+                <ScalarProperty Name="Usuario_ID" ColumnName="Usuario_ID" />
+                <ScalarProperty Name="Rol_ID" ColumnName="Rol_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="TutoriasDBModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="Usuario_Matricula" ColumnName="Usuario_Matricula" />
+                <ScalarProperty Name="Usuario_Nombre" ColumnName="Usuario_Nombre" />
+                <ScalarProperty Name="Usuario_Apellido1" ColumnName="Usuario_Apellido1" />
+                <ScalarProperty Name="Usuario_Correo" ColumnName="Usuario_Correo" />
+                <ScalarProperty Name="Usuario_Contrasena" ColumnName="Usuario_Contrasena" />
+                <ScalarProperty Name="Usuario_Telefono" ColumnName="Usuario_Telefono" />
+                <ScalarProperty Name="Usuario_Descripcion" ColumnName="Usuario_Descripcion" />
+                <ScalarProperty Name="Usuario_Estado" ColumnName="Usuario_Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
