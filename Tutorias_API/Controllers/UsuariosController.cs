@@ -12,21 +12,22 @@ using Tutorias_API.Models;
 
 namespace Tutorias_API.Controllers
 {
+    [Authorize]
     public class UsuariosController : ApiController
     {
-        private TutoriasDBEntities db = new TutoriasDBEntities();
+        private TutoriasDBEntities1 db = new TutoriasDBEntities1();
 
         // GET: api/Usuarios
-        public IQueryable<Usuario> GetUsuarios()
+        public IQueryable<Usuarios> GetUsuarios()
         {
             return db.Usuarios;
         }
 
         // GET: api/Usuarios/5
-        [ResponseType(typeof(Usuario))]
-        public IHttpActionResult GetUsuario(int id)
+        [ResponseType(typeof(Usuarios))]
+        public IHttpActionResult GetUsuario(string id)
         {
-            Usuario usuario = db.Usuarios.Find(id);
+            Usuarios usuario = db.Usuarios.Find(id);
             if (usuario == null)
             {
                 return NotFound();
@@ -40,30 +41,31 @@ namespace Tutorias_API.Controllers
                                 Apellido = p.Usuario_Apellido1,
                                 Rol = ((from x in db.UsuarioRoles
                                         where x.Usuario_ID == id
-                                        select new { x.Role.Rol_Nombre }).FirstOrDefault()).Rol_Nombre,
+                                        select new { x.Roles.Rol_Nombre }).FirstOrDefault()).Rol_Nombre,
                                 Telefono = p.Usuario_Telefono,
                                 Correo = p.Usuario_Correo,
                                 Estado = p.Usuario_Estado,
-                                Tutorias = (from x in db.Itinerarios
-                                             where x.Tutoria.Profesor_ID == id
-                                            select new {x.Tutoria.Asignatura.Asignatura_Nombre})
+                                Tutorias = (from x in db.Itinerario
+                                            where x.Tutorias.Profesor_ID == id
+                                            select new { x.Tutorias.Asignaturas.Asignatura_Nombre })
+
 
 
                             }).FirstOrDefault();
 
-            return Ok(usuarios);
+            return Ok(usuario);
         }
 
         // PUT: api/Usuarios/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutUsuario(int id, Usuario usuario)
+        public IHttpActionResult PutUsuario(string id, Usuarios usuario)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != usuario.Usuario_Matricula)
+            if (id.ToString() != usuario.Usuario_Matricula)
             {
                 return BadRequest();
             }
@@ -89,41 +91,16 @@ namespace Tutorias_API.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Usuarios
-        [ResponseType(typeof(Usuario))]
-        public IHttpActionResult PostUsuario(Usuario usuario)
+        private bool UsuarioExiste(string id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            db.Usuarios.Add(usuario);
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-                if (UsuarioExists(usuario.Usuario_Matricula))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtRoute("DefaultApi", new { id = usuario.Usuario_Matricula }, usuario);
+            throw new NotImplementedException();
         }
 
         // DELETE: api/Usuarios/5
-        [ResponseType(typeof(Usuario))]
+        [ResponseType(typeof(Usuarios))]
         public IHttpActionResult DeleteUsuario(int id)
         {
-            Usuario usuario = db.Usuarios.Find(id);
+            Usuarios usuario = db.Usuarios.Find(id);
             if (usuario == null)
             {
                 return NotFound();
@@ -144,7 +121,7 @@ namespace Tutorias_API.Controllers
             base.Dispose(disposing);
         }
 
-        private bool UsuarioExists(int id)
+        private bool UsuarioExists(string id)
         {
             return db.Usuarios.Count(e => e.Usuario_Matricula == id) > 0;
         }

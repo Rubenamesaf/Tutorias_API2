@@ -14,20 +14,20 @@ namespace Tutorias_API.Controllers
 {
     public class ProfesorAsignaturasController : ApiController
     {
-        private TutoriasDBEntities db = new TutoriasDBEntities();
+        private TutoriasDBEntities1 db = new TutoriasDBEntities1();
 
         // GET: api/ProfesorAsignaturas
         public IQueryable<ProfesorAsignatura> GetProfesorAsignaturas()
         {
 
-            return db.ProfesorAsignaturas;
+            return db.ProfesorAsignatura;
         }
 
         // GET: api/ProfesorAsignaturas/5
         [ResponseType(typeof(ProfesorAsignatura))]
         public IHttpActionResult GetProfesorAsignatura(int id)
         {
-            ProfesorAsignatura profesorAsignatura = db.ProfesorAsignaturas.Find(id);
+            ProfesorAsignatura profesorAsignatura = db.ProfesorAsignatura.Find(id);
             if (profesorAsignatura == null)
             {
                 return NotFound();
@@ -80,7 +80,7 @@ namespace Tutorias_API.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.ProfesorAsignaturas.Add(profesorAsignatura);
+            db.ProfesorAsignatura.Add(profesorAsignatura);
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = profesorAsignatura.Pro_asig_ID }, profesorAsignatura);
@@ -90,13 +90,13 @@ namespace Tutorias_API.Controllers
         [ResponseType(typeof(ProfesorAsignatura))]
         public IHttpActionResult DeleteProfesorAsignatura(int id)
         {
-            ProfesorAsignatura profesorAsignatura = db.ProfesorAsignaturas.Find(id);
+            ProfesorAsignatura profesorAsignatura = db.ProfesorAsignatura.Find(id);
             if (profesorAsignatura == null)
             {
                 return NotFound();
             }
 
-            db.ProfesorAsignaturas.Remove(profesorAsignatura);
+            db.ProfesorAsignatura.Remove(profesorAsignatura);
             db.SaveChanges();
 
             return Ok(profesorAsignatura);
@@ -113,7 +113,7 @@ namespace Tutorias_API.Controllers
 
         private bool ProfesorAsignaturaExists(int id)
         {
-            return db.ProfesorAsignaturas.Count(e => e.Pro_asig_ID == id) > 0;
+            return db.ProfesorAsignatura.Count(e => e.Pro_asig_ID == id) > 0;
         }
     }
 }

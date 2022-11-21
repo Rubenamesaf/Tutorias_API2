@@ -12,13 +12,24 @@ namespace Tutorias_API.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ProfesorAsignatura
+    public partial class Tutorias
     {
-        public int Pro_asig_ID { get; set; }
-        public string Profesor_ID { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Tutorias()
+        {
+            this.Itinerario = new HashSet<Itinerario>();
+        }
+    
+        public int Tutoria_ID { get; set; }
         public Nullable<int> Asignatura_ID { get; set; }
+        public string Profesor_ID { get; set; }
+        public string Estudiante_ID { get; set; }
+        public Nullable<bool> Tuoria_Estado { get; set; }
     
         public virtual Asignaturas Asignaturas { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Itinerario> Itinerario { get; set; }
         public virtual Usuarios Usuarios { get; set; }
+        public virtual Usuarios Usuarios1 { get; set; }
     }
 }

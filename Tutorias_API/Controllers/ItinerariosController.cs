@@ -14,19 +14,19 @@ namespace Tutorias_API.Controllers
 {
     public class ItinerariosController : ApiController
     {
-        private TutoriasDBEntities db = new TutoriasDBEntities();
+        private TutoriasDBEntities1 db = new TutoriasDBEntities1();
 
         // GET: api/Itinerarios
         public IQueryable<Itinerario> GetItinerarios()
         {
-            return db.Itinerarios;
+            return db.Itinerario;
         }
 
         // GET: api/Itinerarios/5
         [ResponseType(typeof(Itinerario))]
         public IHttpActionResult GetItinerario(int id)
         {
-            Itinerario itinerario = db.Itinerarios.Find(id);
+            Itinerario itinerario = db.Itinerario.Find(id);
             if (itinerario == null)
             {
                 return NotFound();
@@ -79,7 +79,7 @@ namespace Tutorias_API.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Itinerarios.Add(itinerario);
+            db.Itinerario.Add(itinerario);
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = itinerario.Itinerario_ID }, itinerario);
@@ -89,13 +89,13 @@ namespace Tutorias_API.Controllers
         [ResponseType(typeof(Itinerario))]
         public IHttpActionResult DeleteItinerario(int id)
         {
-            Itinerario itinerario = db.Itinerarios.Find(id);
+            Itinerario itinerario = db.Itinerario.Find(id);
             if (itinerario == null)
             {
                 return NotFound();
             }
 
-            db.Itinerarios.Remove(itinerario);
+            db.Itinerario.Remove(itinerario);
             db.SaveChanges();
 
             return Ok(itinerario);
@@ -112,7 +112,7 @@ namespace Tutorias_API.Controllers
 
         private bool ItinerarioExists(int id)
         {
-            return db.Itinerarios.Count(e => e.Itinerario_ID == id) > 0;
+            return db.Itinerario.Count(e => e.Itinerario_ID == id) > 0;
         }
     }
 }

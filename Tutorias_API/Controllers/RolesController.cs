@@ -14,19 +14,19 @@ namespace Tutorias_API.Controllers
 {
     public class RolesController : ApiController
     {
-        private TutoriasDBEntities db = new TutoriasDBEntities();
+        private TutoriasDBEntities1 db = new TutoriasDBEntities1();
 
         // GET: api/Roles
-        public IQueryable<Role> GetRoles()
+        public IQueryable<Roles> GetRoles()
         {
             return db.Roles;
         }
 
         // GET: api/Roles/5
-        [ResponseType(typeof(Role))]
+        [ResponseType(typeof(Roles))]
         public IHttpActionResult GetRole(int id)
         {
-            Role role = db.Roles.Find(id);
+            Roles role = db.Roles.Find(id);
             if (role == null)
             {
                 return NotFound();
@@ -37,7 +37,7 @@ namespace Tutorias_API.Controllers
 
         // PUT: api/Roles/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutRole(int id, Role role)
+        public IHttpActionResult PutRole(int id, Roles role)
         {
             if (!ModelState.IsValid)
             {
@@ -71,8 +71,8 @@ namespace Tutorias_API.Controllers
         }
 
         // POST: api/Roles
-        [ResponseType(typeof(Role))]
-        public IHttpActionResult PostRole(Role role)
+        [ResponseType(typeof(Roles))]
+        public IHttpActionResult PostRole(Roles role)
         {
             if (!ModelState.IsValid)
             {
@@ -86,10 +86,10 @@ namespace Tutorias_API.Controllers
         }
 
         // DELETE: api/Roles/5
-        [ResponseType(typeof(Role))]
+        [ResponseType(typeof(Roles))]
         public IHttpActionResult DeleteRole(int id)
         {
-            Role role = db.Roles.Find(id);
+            Roles role = db.Roles.Find(id);
             if (role == null)
             {
                 return NotFound();

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="28a2a869f18a4a9a8f929586f9838800" Name="Diagram1">
+        <EntityTypeShape EntityType="TutoriasDBModel.Asignaturas" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TutoriasDBModel.Itinerario" Width="1.5" PointX="8.25" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TutoriasDBModel.ProfesorAsignatura" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TutoriasDBModel.Roles" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TutoriasDBModel.Tutorias" Width="1.5" PointX="6" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TutoriasDBModel.UsuarioRoles" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TutoriasDBModel.Usuarios" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <AssociationConnector Association="TutoriasDBModel.FK__ProfesorA__Asign__34C8D9D1" ManuallyRouted="false" />
+        <AssociationConnector Association="TutoriasDBModel.FK__Tutorias__Asigna__37A5467C" ManuallyRouted="false" />
+        <AssociationConnector Association="TutoriasDBModel.FK__Itinerari__Tutor__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="TutoriasDBModel.FK__ProfesorA__Profe__33D4B598" ManuallyRouted="false" />
+        <AssociationConnector Association="TutoriasDBModel.FK__UsuarioRo__Rol_I__2F10007B" ManuallyRouted="false" />
+        <AssociationConnector Association="TutoriasDBModel.FK__Tutorias__Estudi__398D8EEE" ManuallyRouted="false" />
+        <AssociationConnector Association="TutoriasDBModel.FK__Tutorias__Profes__38996AB5" ManuallyRouted="false" />
+        <AssociationConnector Association="TutoriasDBModel.FK__UsuarioRo__Usuar__2E1BDC42" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

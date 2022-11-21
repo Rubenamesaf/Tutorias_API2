@@ -14,19 +14,19 @@ namespace Tutorias_API.Controllers
 {
     public class UsuarioRolesController : ApiController
     {
-        private TutoriasDBEntities db = new TutoriasDBEntities();
+        private TutoriasDBEntities1 db = new TutoriasDBEntities1();
 
         // GET: api/UsuarioRoles
-        public IQueryable<UsuarioRole> GetUsuarioRoles()
+        public IQueryable<UsuarioRoles> GetUsuarioRoles()
         {
             return db.UsuarioRoles;
         }
 
         // GET: api/UsuarioRoles/5
-        [ResponseType(typeof(UsuarioRole))]
+        [ResponseType(typeof(UsuarioRoles))]
         public IHttpActionResult GetUsuarioRole(int id)
         {
-            UsuarioRole usuarioRole = db.UsuarioRoles.Find(id);
+            UsuarioRoles usuarioRole = db.UsuarioRoles.Find(id);
             if (usuarioRole == null)
             {
                 return NotFound();
@@ -37,7 +37,7 @@ namespace Tutorias_API.Controllers
 
         // PUT: api/UsuarioRoles/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutUsuarioRole(int id, UsuarioRole usuarioRole)
+        public IHttpActionResult PutUsuarioRole(int id, UsuarioRoles usuarioRole)
         {
             if (!ModelState.IsValid)
             {
@@ -71,8 +71,8 @@ namespace Tutorias_API.Controllers
         }
 
         // POST: api/UsuarioRoles
-        [ResponseType(typeof(UsuarioRole))]
-        public IHttpActionResult PostUsuarioRole(UsuarioRole usuarioRole)
+        [ResponseType(typeof(UsuarioRoles))]
+        public IHttpActionResult PostUsuarioRole(UsuarioRoles usuarioRole)
         {
             if (!ModelState.IsValid)
             {
@@ -86,10 +86,10 @@ namespace Tutorias_API.Controllers
         }
 
         // DELETE: api/UsuarioRoles/5
-        [ResponseType(typeof(UsuarioRole))]
+        [ResponseType(typeof(UsuarioRoles))]
         public IHttpActionResult DeleteUsuarioRole(int id)
         {
-            UsuarioRole usuarioRole = db.UsuarioRoles.Find(id);
+            UsuarioRoles usuarioRole = db.UsuarioRoles.Find(id);
             if (usuarioRole == null)
             {
                 return NotFound();

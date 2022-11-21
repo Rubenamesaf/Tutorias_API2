@@ -12,13 +12,13 @@ namespace Tutorias_API.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ProfesorAsignatura
+    public partial class UsuarioRoles
     {
-        public int Pro_asig_ID { get; set; }
-        public string Profesor_ID { get; set; }
-        public Nullable<int> Asignatura_ID { get; set; }
+        public int Us_Rol_ID { get; set; }
+        public string Usuario_ID { get; set; }
+        public Nullable<int> Rol_ID { get; set; }
     
-        public virtual Asignaturas Asignaturas { get; set; }
+        public virtual Roles Roles { get; set; }
         public virtual Usuarios Usuarios { get; set; }
     }
 }

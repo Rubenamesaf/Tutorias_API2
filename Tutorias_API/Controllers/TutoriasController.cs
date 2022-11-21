@@ -14,19 +14,19 @@ namespace Tutorias_API.Controllers
 {
     public class TutoriasController : ApiController
     {
-        private TutoriasDBEntities db = new TutoriasDBEntities();
+        private TutoriasDBEntities1 db = new TutoriasDBEntities1();
 
         // GET: api/Tutorias
-        public IQueryable<Tutoria> GetTutorias()
+        public IQueryable<Tutorias> GetTutorias()
         {
             return db.Tutorias;
         }
 
         // GET: api/Tutorias/5
-        [ResponseType(typeof(Tutoria))]
+        [ResponseType(typeof(Tutorias))]
         public IHttpActionResult GetTutoria(int id)
         {
-            Tutoria tutoria = db.Tutorias.Find(id);
+            Tutorias tutoria = db.Tutorias.Find(id);
             if (tutoria == null)
             {
                 return NotFound();
@@ -37,7 +37,7 @@ namespace Tutorias_API.Controllers
 
         // PUT: api/Tutorias/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutTutoria(int id, Tutoria tutoria)
+        public IHttpActionResult PutTutoria(int id, Tutorias tutoria)
         {
             if (!ModelState.IsValid)
             {
@@ -71,8 +71,8 @@ namespace Tutorias_API.Controllers
         }
 
         // POST: api/Tutorias
-        [ResponseType(typeof(Tutoria))]
-        public IHttpActionResult PostTutoria(Tutoria tutoria)
+        [ResponseType(typeof(Tutorias))]
+        public IHttpActionResult PostTutoria(Tutorias tutoria)
         {
             if (!ModelState.IsValid)
             {
@@ -86,10 +86,10 @@ namespace Tutorias_API.Controllers
         }
 
         // DELETE: api/Tutorias/5
-        [ResponseType(typeof(Tutoria))]
+        [ResponseType(typeof(Tutorias))]
         public IHttpActionResult DeleteTutoria(int id)
         {
-            Tutoria tutoria = db.Tutorias.Find(id);
+            Tutorias tutoria = db.Tutorias.Find(id);
             if (tutoria == null)
             {
                 return NotFound();

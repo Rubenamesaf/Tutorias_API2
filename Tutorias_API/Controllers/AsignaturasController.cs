@@ -14,19 +14,19 @@ namespace Tutorias_API.Controllers
 {
     public class AsignaturasController : ApiController
     {
-        private TutoriasDBEntities db = new TutoriasDBEntities();
+        private TutoriasDBEntities1 db = new TutoriasDBEntities1();
 
         // GET: api/Asignaturas
-        public IQueryable<Asignatura> GetAsignaturas()
+        public IQueryable<Asignaturas> GetAsignaturas()
         {
             return db.Asignaturas;
         }
 
         // GET: api/Asignaturas/5
-        [ResponseType(typeof(Asignatura))]
+        [ResponseType(typeof(Asignaturas))]
         public IHttpActionResult GetAsignatura(int id)
         {
-            Asignatura asignatura = db.Asignaturas.Find(id);
+            Asignaturas asignatura = db.Asignaturas.Find(id);
             if (asignatura == null)
             {
                 return NotFound();
@@ -37,7 +37,7 @@ namespace Tutorias_API.Controllers
 
         // PUT: api/Asignaturas/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutAsignatura(int id, Asignatura asignatura)
+        public IHttpActionResult PutAsignatura(int id, Asignaturas asignatura)
         {
             if (!ModelState.IsValid)
             {
@@ -71,8 +71,8 @@ namespace Tutorias_API.Controllers
         }
 
         // POST: api/Asignaturas
-        [ResponseType(typeof(Asignatura))]
-        public IHttpActionResult PostAsignatura(Asignatura asignatura)
+        [ResponseType(typeof(Asignaturas))]
+        public IHttpActionResult PostAsignatura(Asignaturas asignatura)
         {
             if (!ModelState.IsValid)
             {
@@ -101,10 +101,10 @@ namespace Tutorias_API.Controllers
         }
 
         // DELETE: api/Asignaturas/5
-        [ResponseType(typeof(Asignatura))]
+        [ResponseType(typeof(Asignaturas))]
         public IHttpActionResult DeleteAsignatura(int id)
         {
-            Asignatura asignatura = db.Asignaturas.Find(id);
+            Asignaturas asignatura = db.Asignaturas.Find(id);
             if (asignatura == null)
             {
                 return NotFound();
