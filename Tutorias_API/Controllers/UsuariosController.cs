@@ -32,26 +32,22 @@ namespace Tutorias_API.Controllers
             {
                 return NotFound();
             }
-            var usuarios = (from p in db.Usuarios
-                            where p.Usuario_Matricula == id
-                            select new
-                            {
-                                Matricula = p.Usuario_Matricula,
-                                Nombre = p.Usuario_Nombre,
-                                Apellido = p.Usuario_Apellido1,
-                                Rol = ((from x in db.UsuarioRoles
-                                        where x.Usuario_ID == id
-                                        select new { x.Roles.Rol_Nombre }).FirstOrDefault()).Rol_Nombre,
-                                Telefono = p.Usuario_Telefono,
-                                Correo = p.Usuario_Correo,
-                                Estado = p.Usuario_Estado,
-                                Tutorias = (from x in db.Itinerario
-                                            where x.Tutorias.Profesor_ID == id
-                                            select new { x.Tutorias.Asignaturas.Asignatura_Nombre })
-
-
-
-                            }).FirstOrDefault();
+            //var usuarios = (from p in db.Usuarios
+            //                where p.Usuario_Matricula == id
+            //                select new
+            //                {
+            //                    Matricula = p.Usuario_Matricula,
+            //                    Nombre = p.Usuario_Nombre,
+            //                    Apellido = p.Usuario_Apellido1,
+            //                    Rol = ((from x in db.UsuarioRoles
+            //                            where x.Usuario_ID == id
+            //                            select new { x.Roles.Rol_Nombre }).FirstOrDefault()).Rol_Nombre,
+            //                    Telefono = p.Usuario_Telefono,
+            //                    Correo = p.Usuario_Correo,
+            //                    Estado = p.Usuario_Estado,
+            //                    Tutorias = (from x in db.Itinerario
+            //                                where x.Tutorias.Profesor_ID == id
+            //                                select new { x.Tutorias.Asignaturas.Asignatura_Nombre })}).FirstOrDefault();
 
             return Ok(usuario);
         }
